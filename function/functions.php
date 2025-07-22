@@ -124,8 +124,6 @@
 	}
 
 
-
-
 	function ubah($data) {
 		global $conn;
 

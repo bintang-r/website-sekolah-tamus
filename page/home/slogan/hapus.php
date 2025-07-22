@@ -1,14 +1,20 @@
-<?php 
+<?php
+use App\Helpers\Core;
 
-	if(!isset($_GET['id'])) {
-		header("location: index.php?page=home");
-	}
+Core::init();
+Core::AUTH(); // Kalau perlu
 
-	$id = $_GET['id'];
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
 
-	if(isset($_GET['id'])) {
-		$sql = mysqli_query($conn, "delete from home where id='$id' ");
-		header("location: index.php");
-	}
+    global $conn;
+    $conn->query("DELETE FROM home WHERE id = $id");
 
+    // Ganti redirect dengan JavaScript agar tidak terganggu oleh output sebelumnya
+    echo "<script>
+        alert('Data berhasil dihapus.');
+        window.location.href = '" . '?page=' . "';
+    </script>";
+    exit;
+}
 ?>

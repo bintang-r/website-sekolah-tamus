@@ -31,6 +31,7 @@ class Core
      public static function HEADER($pageTitle = "Beranda")
      {
           self::init(); // Pastikan koneksi & session tersedia
+          require_once __DIR__ . '/../../function/functions.php';
           include_once __DIR__ . '/../../includes/header.php';
           include_once __DIR__ . '/../../includes/topbar.php';
           include_once __DIR__ . '/../../includes/sidebar.php';
@@ -51,7 +52,7 @@ class Core
           }
      }
 
-     protected static function rootUrl($path = '')
+     public static function rootUrl($path = '')
      {
           // Ambil base URL dari dokumen root, misalnya "/website-sekolah/"
           $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');

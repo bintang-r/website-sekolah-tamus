@@ -1,14 +1,27 @@
 <?php 
+	use App\Helpers\Core;
+
+	Core::init();
+	Core::AUTH(); // Kalau perlu
 
 	if(!isset($_GET['id'])) {
-		header("location: index.php?page=home");
+		echo "<script>
+			alert('Data berhasil dihapus.');
+			window.location.href = '" . '?page=home' . "';
+		</script>";
+		exit;
 	}
 
 	$id = $_GET['id'];
 
 	if(isset($_GET['id'])) {
+		global $conn;
 		$sql = mysqli_query($conn, "delete from berita where id='$id' ");
-		header("location: index.php?page=home");
+		echo "<script>
+			alert('Data berhasil dihapus.');
+			window.location.href = '" . '?page=home' . "';
+		</script>";
+		exit;
 	}
 
 ?>

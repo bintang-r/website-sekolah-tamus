@@ -1,92 +1,48 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<!--Import Google Icon Font-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
-	<link type="text/css" rel="stylesheet" href="../../assets/css/materialize.min.css"  media="screen,projection"/>
-	<!-- mycss -->
-	<link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<title>Smp Muhammadiyah Wanasari</title>
-	</head>
 
-<body >
-
-
-	<div class="container">
-
-
-		<h4>Tambah Slogan</h4><br><br>
-
-
-
-	   <form action="" method="post" enctype="multipart/form-data">
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="judul_slogan" name="judul_slogan" type="text" class="">
-          <label for="judul_slogan">Judul Slogan</label>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0 text-white">Tambah Slogan</h5>
         </div>
-      </div>
+        <div class="card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="judul_slogan" class="form-label">Judul Slogan</label>
+                    <input type="text" class="form-control" id="judul_slogan" name="judul_slogan" required>
+                </div>
 
+                <div class="mb-3">
+                    <label for="isi_slogan" class="form-label">Isi Slogan</label>
+                    <textarea class="form-control" id="isi_slogan" name="isi_slogan" rows="3" required></textarea>
+                </div>
 
+                <div class="mb-3">
+                    <label for="gambar" class="form-label">Gambar</label>
+                    <input class="form-control" type="file" id="gambar" name="gambar" accept="image/*" required>
+                </div>
 
+                <div class="d-flex justify-content-between">
+                    <a href="index.php" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
+                    <button type="submit" name="tambah" class="btn btn-primary">
+                        <i class="bi bi-send-fill"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-	 <div class="row">
-	      <div class="row">
-	        <div class="input-field col s12">
-	          <textarea id="textarea1" name="isi_slogan" class="materialize-textarea"></textarea>
-	          <label for="textarea1">Isi Slogan</label>
-	        </div>
-	      </div>
-	  </div>
+    <?php 
+    if (isset($_POST['tambah'])) {
+        if (tambah($_POST) > 0) {
+            echo "<script>
+                alert('Slogan Berhasil Ditambahkan');
+                window.location.href='index.php';
+            </script>";
+        }
+    }
+    ?>
+</div>
 
+<!-- Bootstrap JS (opsional, untuk komponen interaktif) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
-	  <div class="row">
-	      <div class="file-field input-field">
-      		<div class="btn blue">
-      		  <span>Add Gambar</span>
-      		  <input type="file" name="gambar">
-     		</div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
-	      </div>
-	    </div>
-	  </div>
-
-
-
-	  <button class="btn waves-effect waves-light" type="submit" name="tambah">Submit
-	    <i class="material-icons right">send</i>
-	  </button>
-
-	  <a href="index.php" class="btn waves-effect waves-light" ><i class="material-icons left">fast_rewind</i>Kembali</a>
-	    </form>
-
-
-	</div>
-
-
-
-	<?php 
-
-		if(isset($_POST['tambah']))	{
-			if(tambah($_POST) > 0) {
-				echo "<script>
-							alert ('Slogan Berhasil Ditambahkan');
-							window.location.href='index.php';
-					  </script>
-					  ";
-			}
-		}
-
-	?>
-
-
-
-	<!--JavaScript at end of body for optimized loading-->
-<script type="text/javascript" src="../../assets/js/materialize.min.js"></script>
-</body>
-</html>

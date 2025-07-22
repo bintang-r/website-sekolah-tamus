@@ -1,106 +1,66 @@
 <?php 
+    if (!isset($_GET['id'])) {
+        header("Location: index.php");
+        exit;
+    }
 
-	if(!isset($_GET['id'])) {
-		header("location: index.php");
-	}
+    $id = $_GET['id'];
+    $result = mysqli_query($conn, "SELECT * FROM home WHERE id='$id'");
+    $data = mysqli_fetch_assoc($result);
 
-	$id = $_GET['id'];
-
-	$result = mysqli_query($conn, "select * from home where id='$id' ");
-
-	$data = mysqli_fetch_assoc($result);
-
-	if(isset($_POST['ubah'])) {
-		if(ubah($_POST) > 0) {
-			echo "<script>
-							alert ('Slogan Berhasil Diubah');
-							window.location.href='index.php';
-					  </script>
-					  ";
-		}else{
-			echo "<script>
-						alert ('Slogan Berhasil Ditambahkan');
-					  </script>
-					  ";
-		}
-	}
-
+    if (isset($_POST['ubah'])) {
+        if (ubah($_POST) > 0) {
+            echo "<script>
+                    alert('Slogan Berhasil Diubah');
+                    window.location.href='index.php';
+                  </script>";
+        } else {
+            echo "<script>
+                    alert('Slogan Gagal Diubah');
+                  </script>";
+        }
+    }
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-	<!--Import Google Icon Font-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
-	<link type="text/css" rel="stylesheet" href="../../assets/css/materialize.min.css"  media="screen,projection"/>
-	<!-- mycss -->
-	<link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<title>Smp Muhammadiyah Wanasari</title>
-	</head>
 
-<body >
+<div class="container my-5">
+    <h3 class="mb-4 text-white">Edit Slogan</h3>
 
+    <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?= $data['id'] ?>">
+        <input type="hidden" name="gambarlama" value="<?= $data['gambar_slogan'] ?>">
 
-	<div class="container">
-
-
-		<h4>Edit Slogan</h4><br><br>
-
-
-
-	   <form action="" method="post" enctype="multipart/form-data">
-	   	<input type="hidden" name="id" value="<?=$data['id']?>">
-	   	<input type="hidden" name="gambarlama" value="<?=$data['gambar_slogan']?>">
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="judul_slogan" name="judul_slogan" type="text" class="" value="<?=$data['judul_slogan'] ?>">
-          <label for="judul_slogan">Judul Slogan</label>
+        <div class="mb-3">
+            <label for="judul_slogan" class="form-label">Judul Slogan</label>
+            <input type="text" class="form-control" id="judul_slogan" name="judul_slogan" value="<?= $data['judul_slogan'] ?>" required>
         </div>
-      </div>
 
+        <div class="mb-3">
+            <label for="isi_slogan" class="form-label">Isi Slogan</label>
+            <textarea class="form-control" id="isi_slogan" name="isi_slogan" rows="4" required><?= $data['isi_slogan'] ?></textarea>
+        </div>
 
+        <div class="mb-3">
+            <label class="form-label">Gambar Lama</label><br>
+            <img src="../assets/img/slogan/<?= $data['gambar_slogan'] ?>" alt="Gambar Slogan" class="img-thumbnail mb-2" width="200">
+        </div>
 
+        <div class="mb-3">
+            <label for="gambar" class="form-label">Upload Gambar Baru</label>
+            <input class="form-control" type="file" id="gambar" name="gambar">
+        </div>
 
-	 <div class="row">
-	      <div class="row">
-	        <div class="input-field col s12">
-	          <textarea id="textarea1" name="isi_slogan" class="materialize-textarea"><?=$data['isi_slogan'] ?></textarea>
-	          <label for="textarea1">Isi Slogan</label>
-	        </div>
-	      </div>
-	  </div>
+        <div class="d-flex gap-2">
+            <button type="submit" name="ubah" class="btn btn-primary">
+                <i class="bi bi-check-circle"></i> Simpan Perubahan
+            </button>
+            <a href="index.php" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Kembali
+            </a>
+        </div>
+    </form>
+</div>
 
-
-
-	  <div class="row">
-	      <div class="file-field input-field">
-      		<div class="btn blue">
-      		  <span>Update Gambar</span>
-      		  <input type="file" name="gambar">
-     		</div>
-      			<img src="../assets/img/slogan/<?php echo $data['gambar_slogan'] ?>" width="15%">
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
-	      </div>
-	    </div>
-	  </div>
-
-
-
-	  <button class="btn waves-effect waves-light" type="submit" name="ubah">Submit
-	    <i class="material-icons right">send</i>
-	  </button>
-
-	  <a href="index.php" class="btn waves-effect waves-light" ><i class="material-icons left">fast_rewind</i>Kembali</a>
-	    </form>
-
-
-	</div>
-
-
-	<!--JavaScript at end of body for optimized loading-->
-<script type="text/javascript" src="../../assets/js/materialize.min.js"></script>
-</body>
-</html>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Optional: Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
