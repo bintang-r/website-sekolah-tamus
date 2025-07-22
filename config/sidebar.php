@@ -7,11 +7,6 @@ return [
         'icon'   => 'dripicons-home',
     ],
     [
-        'title'  => 'Home',
-        'route'  => '?page=home',
-        'icon'   => 'dripicons-view-thumb',
-    ],
-    [
         'title'  => 'Profil',
         'route'  => '?page=profil',
         'icon'   => 'dripicons-user',

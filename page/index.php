@@ -7,7 +7,6 @@
 	Core::AUTH();
 
 	Core::HEADER('Beranda');
-	
 ?>
 
 <div class="main-content">
